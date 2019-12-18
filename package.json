@@ -1,11 +1,21 @@
 {
   "name": "oscars-2020-api",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "npx nodemon",
+    "build": "npx tsc",
+    "prod": "forever stopall && NODE_ENV=production forever start ./dist/server.js"
   },
-  "author": "",
-  "license": "ISC"
+  "devDependencies": {
+    "@types/cors": "^2.8.6",
+    "@types/express": "^4.17.2",
+    "@types/node": "^12.12.20",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.2",
+    "ts-node": "^8.5.4",
+    "typescript": "^3.7.3"
+  },
+  "dependencies": {
+    "cors": "^2.8.5"
+  }
 }
