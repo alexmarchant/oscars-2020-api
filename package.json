@@ -4,7 +4,7 @@
   "scripts": {
     "start": "npx nodemon",
     "build": "npx tsc",
-    "prod": "forever stopall && NODE_ENV=production forever start ./dist/server.js"
+    "serve": "node ./dist/server.js"
   },
   "devDependencies": {
     "@types/cors": "^2.8.6",
