@@ -18,7 +18,10 @@
     "typescript": "^3.7.3"
   },
   "dependencies": {
+    "apollo-datasource": "^0.6.4",
     "apollo-server": "^2.9.15",
-    "graphql": "^14.5.8"
+    "graphql": "^14.5.8",
+    "sequelize": "^5.21.3",
+    "sqlite3": "^4.1.1"
   }
 }
