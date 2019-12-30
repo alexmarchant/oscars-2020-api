@@ -1,12 +1,10 @@
-import express from 'express'
-import cors from 'cors'
+import { ApolloServer } from 'apollo-server'
+import typeDefs from './schema'
 
-const app = express()
-app.use(cors())
-
-app.get('/', (req, res) => {
-  res.sendStatus(200)
-})
+const server = new ApolloServer({ typeDefs })
 
 const port = process.env.PORT || 3001
-app.listen(port)
+
+server.listen({ port }).then(({ url }) => {
+  console.log(`🚀 Server ready at ${url}`)
+})
