@@ -1,15 +1,13 @@
-import TestPayloadAPI from './datasources/TestPayloadAPI'
+import { IResolvers } from 'graphql-tools'
 import TestPayload from './models/TestPayload'
+import { Context } from './server'
 
-interface DataSources {
-  testPayloadAPI: TestPayloadAPI;
-}
-
-export default {
+const resolvers: IResolvers = {
   Query: {
-    testPayload: async (parent: {}, args: {}, { dataSources }: { dataSources: DataSources }): Promise<TestPayload> => {
-      console.log('test')
+    testPayload: async (parent: {}, args: {}, { dataSources }: Context): Promise<TestPayload> => {
       return dataSources.testPayloadAPI.getFirst()
     },
   },
 }
+
+export default resolvers

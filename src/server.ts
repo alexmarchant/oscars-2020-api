@@ -6,6 +6,14 @@ import { initDB } from './db'
 
 initDB()
 
+interface DataSources {
+  testPayloadAPI: TestPayloadAPI;
+}
+
+export interface Context {
+  dataSources: DataSources;
+}
+
 const server = new ApolloServer({
   typeDefs,
   resolvers,
