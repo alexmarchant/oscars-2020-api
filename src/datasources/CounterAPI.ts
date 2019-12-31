@@ -14,7 +14,10 @@ export default class TestPayloadAPI extends DataSource {
   }
 
   async getCount(): Promise<number> {
-    const counter: Counter = await Counter.findOne()
+    const counter = await Counter.findOne()
+    if (!counter) {
+      throw new Error('No counter found')
+    }
     return counter.count
   }
 
