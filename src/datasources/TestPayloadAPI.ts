@@ -14,7 +14,7 @@ export default class TestPayloadAPI extends DataSource {
   }
 
   async getFirst(): Promise<TestPayload> {
-    const payload = TestPayload.findOne()
+    const payload = await TestPayload.findOne()
     if (!payload) {
       throw new Error('No payload found')
     }
