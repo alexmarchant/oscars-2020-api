@@ -4,8 +4,16 @@ import { Context } from './server'
 
 const resolvers: IResolvers = {
   Query: {
-    testPayload: async (parent: {}, args: {}, { dataSources }: Context): Promise<TestPayload> => {
+    testPayload(parent: {}, args: {}, { dataSources }: Context): Promise<TestPayload> {
       return dataSources.testPayloadAPI.getFirst()
+    },
+    counter(parent: {}, args: {}, { dataSources }: Context): Promise<number> {
+      return dataSources.counterAPI.getCount()
+    },
+  },
+  Mutation: {
+    incrementCounter(parent: {}, args: {}, { dataSources }: Context): Promise<number> {
+      return dataSources.counterAPI.incrementCount()
     },
   },
 }

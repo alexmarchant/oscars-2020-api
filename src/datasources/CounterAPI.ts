@@ -1,5 +1,5 @@
 import { DataSource, DataSourceConfig } from 'apollo-datasource'
-import TestPayload from '../models/TestPayload'
+import Counter from '../models/Counter'
 import { Context } from '../server'
 
 export default class TestPayloadAPI extends DataSource {
@@ -13,7 +13,13 @@ export default class TestPayloadAPI extends DataSource {
     this.context = config.context
   }
 
-  async getFirst(): Promise<TestPayload> {
-    return TestPayload.findOne()
+  async getCount(): Promise<number> {
+    const counter: Counter = await Counter.findOne()
+    return counter.count
+  }
+
+  async incrementCount(): Promise<number> {
+    await Counter.increment({ count: 1 }, { where: { id: 1 } })
+    return this.getCount()
   }
 }

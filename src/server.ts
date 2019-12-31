@@ -1,5 +1,6 @@
 import { ApolloServer, ServerInfo } from 'apollo-server'
 import typeDefs from './schema'
+import CounterAPI from './datasources/CounterAPI'
 import TestPayloadAPI from './datasources/TestPayloadAPI'
 import resolvers from './resolvers'
 import { initDB } from './db'
@@ -8,6 +9,7 @@ initDB()
 
 interface DataSources {
   testPayloadAPI: TestPayloadAPI;
+  counterAPI: CounterAPI;
 }
 
 export interface Context {
@@ -19,6 +21,7 @@ const server = new ApolloServer({
   resolvers,
   dataSources: (): {} => ({
     testPayloadAPI: new TestPayloadAPI(),
+    counterAPI: new CounterAPI(),
   }),
 })
 

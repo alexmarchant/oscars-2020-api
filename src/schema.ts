@@ -3,6 +3,7 @@ import { gql } from 'apollo-server'
 const typeDefs = gql`
   type Query {
     testPayload: TestPayload!
+    counter: Int!
   }
 
   type TestPayload {
@@ -10,6 +11,10 @@ const typeDefs = gql`
     int: Int!
     float: Float!
     bool: Boolean!
+  }
+
+  type Mutation {
+    incrementCounter: Int!
   }
 `
 
