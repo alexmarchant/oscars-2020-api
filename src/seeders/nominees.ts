@@ -1,4 +1,4 @@
-// import {Nominee} from '../db'
+import { Nominee, Category } from "../db"
 
 const nominees = [
   {
@@ -1070,3 +1070,29 @@ const nominees = [
     ]
   }
 ]
+
+export async function createNoms() {
+  for (let c = 0; c < nominees.length; c++) {
+    const category = nominees[c].title
+    const noms = nominees[c].nominees
+    for (let n = 0; n < noms.length; n++) {
+      const nom = noms[n]
+      const dbNominee = new Nominee({ name: nom.name, film: nom.film })
+
+      try {
+        const cat = await Category.findOne({
+          where: { title: category }
+        })
+        dbNominee.categoryId = cat.id
+      } catch (err) {
+        console.log(err)
+      }
+
+      try {
+        await dbNominee.save()
+      } catch (err) {
+        console.log(err)
+      }
+    }
+  }
+}
