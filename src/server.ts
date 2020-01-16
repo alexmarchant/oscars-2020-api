@@ -1,12 +1,27 @@
-import express from 'express'
-import cors from 'cors'
+import { typeDefs, resolvers } from "./grapqhl"
+import { ApolloServer } from "apollo-server"
+import { User, initDB } from "./db"
+import { Context } from "./interfaces"
+import { createCategories } from "./seeders"
 
-const app = express()
-app.use(cors())
+initDB()
 
-app.get('/', (req, res) => {
-  res.sendStatus(200)
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  async context({ req }): Promise<Context> {
+    const token = req.headers.authorization?.replace("Bearer ", "")
+    if (token !== "1234") {
+      return {}
+    }
+
+    const user = await User.findOne()
+    return { user }
+  }
 })
 
-const port = process.env.PORT || 3001
-app.listen(port)
+createCategories()
+
+server.listen().then(({ url }) => {
+  console.log(`🚀  Server ready at ${url}`)
+})
