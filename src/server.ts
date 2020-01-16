@@ -2,7 +2,6 @@ import { typeDefs, resolvers } from "./grapqhl"
 import { ApolloServer } from "apollo-server"
 import { User, initDB } from "./db"
 import { Context } from "./interfaces"
-import { createCategories } from "./seeders"
 
 initDB()
 
@@ -19,8 +18,6 @@ const server = new ApolloServer({
     return { user }
   }
 })
-
-createCategories()
 
 server.listen().then(({ url }) => {
   console.log(`🚀  Server ready at ${url}`)

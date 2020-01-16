@@ -1,1 +1,7 @@
-export { createCategories } from "./categories"
+import { createCategories } from "./categories"
+
+function runSeeders() {
+  createCategories()
+}
+
+runSeeders()
