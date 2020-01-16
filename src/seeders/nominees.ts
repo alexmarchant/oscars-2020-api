@@ -1083,12 +1083,12 @@ export async function createNoms() {
         const cat = await Category.findOne({
           where: { title: category }
         })
-        dbNominee.categoryId = cat.id
-      } catch (err) {
-        console.log(err)
-      }
 
-      try {
+        if (!cat) {
+          throw new Error("There is no matching category!")
+        }
+
+        dbNominee.categoryId = cat.id
         await dbNominee.save()
       } catch (err) {
         console.log(err)

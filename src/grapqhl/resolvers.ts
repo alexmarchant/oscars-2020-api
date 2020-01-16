@@ -11,8 +11,11 @@ export const resolvers = {
       return user
     },
 
-    users(parent: {}, args: {}, context: Context): [User] {
+    users(parent: {}, args: {}, context: Context): Promise<User[]> {
       const users = User.findAll()
+      if (!users) {
+        throw new Error("There are no users")
+      }
       return users
     },
 

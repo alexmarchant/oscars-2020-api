@@ -1,5 +1,5 @@
-import { User } from "../db";
+import { User } from "../db"
 
 export interface Context {
-  user?: User;
+  user?: User
 }
