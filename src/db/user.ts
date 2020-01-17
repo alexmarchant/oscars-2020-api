@@ -1,13 +1,13 @@
-import { Model, DataTypes } from "sequelize";
-import { sequelize } from "./init";
+import { Model, DataTypes } from 'sequelize'
+import { sequelize } from './init'
 
 export class User extends Model {
-  id!: number;
-  name!: string;
-  email!: string;
-  password?: string;
-  readonly createdAt!: Date;
-  readonly updatedAt!: Date;
+  id!: number
+  name!: string
+  email!: string
+  hashedPassword!: string
+  readonly createdAt!: Date
+  readonly updatedAt!: Date
 }
 
 User.init(
@@ -15,23 +15,23 @@ User.init(
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
-      primaryKey: true
+      primaryKey: true,
     },
     name: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     email: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
-    password: {
+    hashedPassword: {
       type: DataTypes.STRING,
-      allowNull: false
-    }
+      allowNull: false,
+    },
   },
   {
     sequelize,
-    modelName: "user"
-  }
-);
+    modelName: 'user',
+  },
+)
