@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt'
-import { User } from '../../db'
+import { User, Selection } from '../../db'
 import { Context } from '../../interfaces'
 
 const saltRounds = 10
@@ -22,6 +22,7 @@ export default {
       return users
     },
   },
+
   Mutation: {
     async login(
       parent: {},
@@ -62,5 +63,53 @@ export default {
       await user.save()
       return '1234'
     },
+
+    async makeSelection(
+      parent: {},
+      args: { category?: number; nominee?: number },
+      context: Context,
+    ): Promise<Selection> {
+      const { user } = context
+      const { category, nominee } = args
+      console.log({ user, category, nominee })
+      if (!user) {
+        throw new Error('Not logged in')
+      }
+
+      if (!category || !nominee) {
+        throw new Error('Invalid selection')
+      }
+
+      const selection = await new Selection()
+      selection.userId = user.id
+      selection.categoryId = category
+      selection.nomineeId = nominee
+      await selection.save()
+      return selection
+    },
+  },
+
+  User: {
+    async selections(user: User): Promise<Selection[]> {
+      console.log('USER selections')
+
+      const selections = await Selection.findAll({
+        where: { userId: user.id },
+      })
+
+      if (!selections) {
+        throw new Error('there are no selections')
+      }
+      return selections
+    },
   },
 }
+
+// selections: async (user: User): Promise<Selection[]> => {
+//       console.log('USER selections')
+
+//       const selections = await Selection.findAll({
+//         where: { userId: user.id },
+//       })
+//       return selections
+//     },
