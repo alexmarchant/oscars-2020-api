@@ -27,14 +27,15 @@ export default {
       parent: {},
       args: { email?: string; password?: string },
     ): Promise<string> {
-      if (!args.email || !args.password) {
+      const { email, password } = args
+      if (!email || !password) {
         throw new Error('Missing required args')
       }
-      const user = await User.findOne({ where: { email: args.email } })
+      const user = await User.findOne({ where: { email } })
       if (!user) {
         throw new Error('No user with that email')
       }
-      if (!(await bcrypt.compare(args.password, user.hashedPassword))) {
+      if (!(await bcrypt.compare(password, user.hashedPassword))) {
         throw new Error('Invalid password')
       }
       return '1234'
@@ -57,7 +58,7 @@ export default {
       const user = new User()
       user.name = name
       user.email = email
-      user.hashedPassword = await bcrypt.hash(args.password, saltRounds)
+      user.hashedPassword = await bcrypt.hash(password, saltRounds)
       await user.save()
       return '1234'
     },
