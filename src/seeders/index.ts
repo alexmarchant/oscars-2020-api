@@ -1,3 +1,5 @@
+import { config } from 'dotenv'
+config()
 import { createUser } from './users'
 import { createCategories } from './categories'
 import { createNoms } from './nominees'
