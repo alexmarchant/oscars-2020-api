@@ -1,8 +1,17 @@
 import bcrypt from 'bcrypt'
 import { User, Selection } from '../../db'
 import { Context } from '../../interfaces'
+import { sign } from 'jsonwebtoken'
 
-const saltRounds = 10
+function makeJWT(user: User): string {
+  if (!process.env.JWT_SECRET) {
+    throw new Error('Missing JWT_SECRET env var')
+  }
+
+  const payload = user.toJSON() as any
+  delete payload.hashedPassword
+  return sign(payload, process.env.JWT_SECRET)
+}
 
 export default {
   Query: {
@@ -39,7 +48,7 @@ export default {
       if (!(await bcrypt.compare(password, user.hashedPassword))) {
         throw new Error('Invalid password')
       }
-      return '1234'
+      return makeJWT(user)
     },
 
     async signup(
@@ -59,9 +68,9 @@ export default {
       const user = new User()
       user.name = name
       user.email = email
-      user.hashedPassword = await bcrypt.hash(password, saltRounds)
+      user.hashedPassword = await bcrypt.hash(password, 10)
       await user.save()
-      return '1234'
+      return makeJWT(user)
     },
 
     async makeSelection(
