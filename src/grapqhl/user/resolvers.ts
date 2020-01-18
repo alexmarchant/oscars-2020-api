@@ -30,6 +30,14 @@ export default {
       }
       return users
     },
+
+    mySelections(parent: {}, args: {}, context: Context): Promise<Selection[]> {
+      const { user } = context
+      if (!user) {
+        throw new Error('Not logged in')
+      }
+      return Selection.findAll({ where: { userId: user.id } })
+    },
   },
 
   Mutation: {
@@ -75,24 +83,24 @@ export default {
 
     async makeSelection(
       parent: {},
-      args: { category?: number; nominee?: number },
+      args: { categoryId?: number; nomineeId?: number },
       context: Context,
     ): Promise<Selection> {
       const { user } = context
-      const { category, nominee } = args
-      console.log({ user, category, nominee })
+      const { categoryId, nomineeId } = args
+      console.log({ user, categoryId, nomineeId })
       if (!user) {
         throw new Error('Not logged in')
       }
 
-      if (!category || !nominee) {
+      if (!categoryId || !nomineeId) {
         throw new Error('Invalid selection')
       }
 
       const selection = await new Selection()
       selection.userId = user.id
-      selection.categoryId = category
-      selection.nomineeId = nominee
+      selection.categoryId = categoryId
+      selection.nomineeId = nomineeId
       await selection.save()
       return selection
     },
