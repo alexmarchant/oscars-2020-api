@@ -97,6 +97,15 @@ export default {
         throw new Error('Invalid selection')
       }
 
+      // Clear out old selection for this category
+      await Selection.destroy({
+        where: {
+          userId: user.id,
+          categoryId: categoryId,
+        },
+      })
+
+      // Add new selection
       const selection = await new Selection()
       selection.userId = user.id
       selection.categoryId = categoryId
