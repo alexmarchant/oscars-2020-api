@@ -12,6 +12,7 @@ export async function createUser(
   user.name = name
   user.email = email
   user.hashedPassword = await bcrypt.hash(password, saltRounds)
+  user.admin = true
   await user.save()
   return '1234'
 }
