@@ -8,7 +8,7 @@ export default {
       args: {},
       context: Context,
     ): Promise<Category[]> {
-      const categories = await Category.findAll()
+      const categories = await Category.findAll({ order: [['id', 'ASC']] })
       if (!categories) {
         throw new Error('There are no categories')
       }
@@ -27,7 +27,7 @@ export default {
         throw new Error("Can't find the category!")
       }
 
-      category.winner = nomineeId
+      category.winnerId = nomineeId
       await category.save()
       return category
     },

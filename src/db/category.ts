@@ -1,11 +1,11 @@
-import { Model, DataTypes } from "sequelize"
-import { sequelize } from "./init"
+import { Model, DataTypes } from 'sequelize'
+import { sequelize } from './init'
 
 export class Category extends Model {
   id!: number
   title!: string
   value!: number
-  winner!: number
+  winnerId!: number
   readonly createdAt!: Date
   readonly updatedAt!: Date
 }
@@ -15,23 +15,23 @@ Category.init(
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
-      primaryKey: true
+      primaryKey: true,
     },
     title: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     value: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
     },
-    winner: {
+    winnerId: {
       type: DataTypes.INTEGER,
-      allowNull: true
-    }
+      allowNull: true,
+    },
   },
   {
     sequelize,
-    modelName: "category"
-  }
+    modelName: 'category',
+  },
 )

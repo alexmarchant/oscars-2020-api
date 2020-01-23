@@ -13,7 +13,7 @@ export default gql`
     id: Int!
     title: String!
     value: Int!
-    winner: Int!
+    winnerId: Int
     nominees: [Nominee]
   }
 `
