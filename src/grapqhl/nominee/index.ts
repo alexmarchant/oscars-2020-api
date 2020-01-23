@@ -1,10 +1,9 @@
 import { Nominee } from '../../db'
 import { Op } from 'sequelize'
-import resolvers from './resolvers'
 import schema from './schema'
 import Dataloader from 'dataloader'
 
-export default { resolvers, schema }
+export default { schema }
 
 export function getCategoryNomineesLoader(): Dataloader<number, Nominee[]> {
   return new Dataloader(async ids => {

@@ -130,12 +130,3 @@ export default {
     },
   },
 }
-
-// selections: async (user: User): Promise<Selection[]> => {
-//       console.log('USER selections')
-
-//       const selections = await Selection.findAll({
-//         where: { userId: user.id },
-//       })
-//       return selections
-//     },
