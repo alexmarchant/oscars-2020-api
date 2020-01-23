@@ -6,7 +6,7 @@ export default gql`
   }
 
   extend type Mutation {
-    setWinner(categoryId: Int!, nomineeId: Int!): Category!
+    setWinner(categoryId: Int!, nomineeId: Int): Category!
   }
 
   type Category {
