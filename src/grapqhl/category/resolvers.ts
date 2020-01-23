@@ -34,13 +34,12 @@ export default {
   },
 
   Category: {
-    nominees: async (category: Category): Promise<Nominee[]> => {
-      const nominees = await Nominee.findAll({
-        where: { categoryId: category.id },
-      })
-      return nominees
+    nominees: (
+      category: Category,
+      args: {},
+      context: Context,
+    ): Promise<Nominee[]> => {
+      return context.categoryNomineesLoader.load(category.id)
     },
   },
-
-  // Mutation: {}
 }
