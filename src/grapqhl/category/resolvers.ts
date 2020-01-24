@@ -1,5 +1,9 @@
+import { PubSub } from 'apollo-server'
 import { Category, Nominee } from '../../db'
 import { Context } from '../../interfaces'
+
+const CATEGORY_UPDATED = 'CATEGORY_UPDATED'
+const pubsub = new PubSub()
 
 export default {
   Query: {
@@ -29,8 +33,16 @@ export default {
 
       category.winnerId = nomineeId
       await category.save()
+      pubsub.publish(CATEGORY_UPDATED, { categoryUpdated: category })
       return category
     },
+  },
+  Subscription: {
+    categoryUpdated: {
+      subscribe() {
+        return pubsub.asyncIterator([CATEGORY_UPDATED])
+      }
+    }
   },
 
   Category: {

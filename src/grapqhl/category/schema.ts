@@ -16,4 +16,8 @@ export default gql`
     winnerId: Int
     nominees: [Nominee]
   }
+
+  extend type Subscription {
+    categoryUpdated: Category
+  }
 `
