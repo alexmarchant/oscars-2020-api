@@ -11,6 +11,8 @@ import { getCategoryNomineesLoader } from './grapqhl/nominee'
 initDB()
 
 function getUser(req: Request): User | undefined {
+  // Websockets don't have the req defined
+  if (!req) return
   if (!process.env.JWT_SECRET) {
     throw new Error('Missing JWT_SECRET env var')
   }
@@ -27,6 +29,10 @@ const server = new ApolloServer({
       user: getUser(req),
       categoryNomineesLoader: getCategoryNomineesLoader(),
     }
+  },
+  formatError(err) {
+    console.error(err)
+    return err;
   },
 })
 
