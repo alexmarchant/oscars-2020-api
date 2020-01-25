@@ -22,6 +22,7 @@ function getUser(req: Request): User | undefined {
 }
 
 const server = new ApolloServer({
+  cors: true,
   typeDefs,
   resolvers,
   async context({ req }): Promise<Context> {
@@ -29,10 +30,6 @@ const server = new ApolloServer({
       user: getUser(req),
       categoryNomineesLoader: getCategoryNomineesLoader(),
     }
-  },
-  formatError(err) {
-    console.error(err)
-    return err;
   },
 })
 
