@@ -17,6 +17,7 @@ export default gql`
     id: Int!
     name: String!
     email: String!
+    admin: Boolean!
     selections: [Selection]
   }
 
