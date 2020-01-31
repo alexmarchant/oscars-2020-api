@@ -1105,7 +1105,7 @@ export async function createNoms() {
         if (nom.image) {
           const imageId = parseInt(nom.image, 10)
           const imageData = images[imageId]
-          const crop = imageData.crops.find(crop => crop.type === 'master495')
+          const crop = imageData.crops.find(crop => crop.type === 'verticalTwoByThree735')
           if (!crop) {
             throw new Error('Missing crop for nom')
           }
