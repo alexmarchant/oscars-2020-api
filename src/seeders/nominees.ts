@@ -1,6 +1,20 @@
 import { Nominee, Category } from "../db"
+import images from './images'
 
-const nominees = [
+interface NomData {
+  name: string
+  image: string | null
+  review: string | null
+  film: string
+  winner: boolean
+}
+
+interface CatData {
+  title: string
+  nominees: NomData[]
+}
+
+const nominees: CatData[] = [
   {
     title: "Best Picture",
     nominees: [
@@ -1088,6 +1102,16 @@ export async function createNoms() {
           throw new Error("There is no matching category!")
         }
 
+        if (nom.image) {
+          const imageId = parseInt(nom.image, 10)
+          const imageData = images[imageId]
+          const crop = imageData.crops.find(crop => crop.type === 'master495')
+          if (!crop) {
+            throw new Error('Missing crop for nom')
+          }
+          const url = imageData.host + crop.content
+          dbNominee.imageURL = url
+        }
         dbNominee.categoryId = cat.id
         await dbNominee.save()
       } catch (err) {

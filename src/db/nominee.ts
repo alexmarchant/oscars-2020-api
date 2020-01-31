@@ -6,6 +6,7 @@ export class Nominee extends Model {
   name!: string
   film!: string
   categoryId!: number
+  imageURL?: string
 
   readonly createdAt!: Date
   readonly updatedAt!: Date
@@ -25,6 +26,9 @@ Nominee.init(
     film: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    imageURL: {
+      type: DataTypes.STRING,
     }
   },
   {
