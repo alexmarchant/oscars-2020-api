@@ -5,5 +5,6 @@ export default gql`
     id: Int!
     name: String!
     film: String!
+    imageURL: String
   }
 `
