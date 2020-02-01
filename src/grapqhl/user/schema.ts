@@ -11,6 +11,7 @@ export default gql`
     signup(name: String!, email: String!, password: String!): String
     login(email: String!, password: String!): String
     makeSelection(categoryId: Int!, nomineeId: Int!): Selection
+    updateUser(value: Boolean!): User
   }
 
   type User {
@@ -18,6 +19,7 @@ export default gql`
     name: String!
     email: String!
     admin: Boolean!
+    paid: Boolean!
     selections: [Selection]
   }
 

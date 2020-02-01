@@ -7,6 +7,7 @@ export class User extends Model {
   email!: string
   hashedPassword!: string
   admin!: boolean
+  paid!: boolean
   readonly createdAt!: Date
   readonly updatedAt!: Date
 }
@@ -31,6 +32,11 @@ User.init(
       allowNull: false,
     },
     admin: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+    },
+    paid: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: false,

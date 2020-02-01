@@ -113,6 +113,25 @@ export default {
       await selection.save()
       return selection
     },
+    async updateUser(
+      parent: {},
+      args: { value: boolean },
+      context: Context,
+    ): Promise<User> {
+      const { user } = context
+      if (!user) {
+        throw new Error('Not logged in')
+      }
+
+      const currentUser = await User.findByPk(user.id)
+      if (!currentUser) {
+        throw new Error('Not logged in')
+      }
+
+      currentUser.paid = args.value
+      await currentUser.save()
+      return currentUser
+    },
   },
 
   User: {
