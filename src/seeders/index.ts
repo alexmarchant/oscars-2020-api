@@ -7,8 +7,8 @@ import { createCategories } from './categories'
 import { createNoms } from './nominees'
 
 async function runSeeders() {
-  await createUser('Larson Laidlaw', 'larson@gmail.com', 'test')
-  await createUser('Alex Marchant', 'alex@gmail.com', 'test')
+  await createUser('Larson Laidlaw', 'larsonlaidlaw@gmail.com', 'kobe24ever')
+  await createUser('Alex Marchant', 'alexjmarchant@gmail.com', 'kobe24ever')
   await createCategories()
   await createNoms()
 }
