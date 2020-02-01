@@ -15,12 +15,18 @@ function makeJWT(user: User): string {
 
 export default {
   Query: {
-    me(parent: {}, args: {}, context: Context): User {
+    async me(parent: {}, args: {}, context: Context): Promise<User> {
       const { user } = context
       if (!user) {
         throw new Error('Not logged in')
       }
-      return user
+
+      const currentUser = await User.findByPk(user.id)
+      if (!currentUser) {
+        throw new Error('Not logged in')
+      }
+
+      return currentUser
     },
 
     async users(parent: {}, args: {}, context: Context): Promise<User[]> {
