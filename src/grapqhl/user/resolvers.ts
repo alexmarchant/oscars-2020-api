@@ -94,7 +94,6 @@ export default {
     ): Promise<Selection> {
       const { user } = context
       const { categoryId, nomineeId } = args
-      console.log({ user, categoryId, nomineeId })
       if (!user) {
         throw new Error('Not logged in')
       }
@@ -142,8 +141,6 @@ export default {
 
   User: {
     async selections(user: User): Promise<Selection[]> {
-      console.log('USER selections')
-
       const selections = await Selection.findAll({
         where: { userId: user.id },
       })
