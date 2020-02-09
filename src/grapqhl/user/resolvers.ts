@@ -92,31 +92,32 @@ export default {
       args: { categoryId?: number; nomineeId?: number },
       context: Context,
     ): Promise<Selection> {
-      const { user } = context
-      const { categoryId, nomineeId } = args
-      if (!user) {
-        throw new Error('Not logged in')
-      }
+      throw new Error('Disabled')
+      // const { user } = context
+      // const { categoryId, nomineeId } = args
+      // if (!user) {
+      //   throw new Error('Not logged in')
+      // }
 
-      if (!categoryId || !nomineeId) {
-        throw new Error('Invalid selection')
-      }
+      // if (!categoryId || !nomineeId) {
+      //   throw new Error('Invalid selection')
+      // }
 
-      // Clear out old selection for this category
-      await Selection.destroy({
-        where: {
-          userId: user.id,
-          categoryId: categoryId,
-        },
-      })
+      // // Clear out old selection for this category
+      // await Selection.destroy({
+      //   where: {
+      //     userId: user.id,
+      //     categoryId: categoryId,
+      //   },
+      // })
 
-      // Add new selection
-      const selection = await new Selection()
-      selection.userId = user.id
-      selection.categoryId = categoryId
-      selection.nomineeId = nomineeId
-      await selection.save()
-      return selection
+      // // Add new selection
+      // const selection = await new Selection()
+      // selection.userId = user.id
+      // selection.categoryId = categoryId
+      // selection.nomineeId = nomineeId
+      // await selection.save()
+      // return selection
     },
     async updateUser(
       parent: {},
